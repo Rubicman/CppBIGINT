@@ -5,6 +5,7 @@
 #ifndef BIGINT_REF_VECTOR_H
 #define BIGINT_REF_VECTOR_H
 
+#include <cstdlib>
 #include <vector>
 #include <cstdint>
 
