@@ -19,9 +19,9 @@ big_integer::~big_integer() {
 }
 
 big_integer &big_integer::operator=(big_integer const &b) {
+    b.data->add_ref();
     data->del_ref();
     data = b.data;
-    data->add_ref();
     return *this;
 }
 
@@ -104,31 +104,6 @@ big_integer& big_integer::operator*=(int32_t b) {
     return *this;
 }
 
-big_integer &big_integer::operator/=(int32_t b) {
-    check_data();
-    int32_t carry = 0;
-    int64_t result;
-    uint32_t c = b;
-    bool positive = true;
-    if (b < 0) {
-        positive = !positive;
-        c = -b;
-    }
-    if ((int32_t) (*data)[data->size() - 1] < 0) {
-        negate();
-        positive = !positive;
-    }
-    for (size_t i = data->size(); i--;) {
-        result = ((int64_t) carry << 32) + (*data)[i];
-        (*data)[i] = result / c;
-        carry = result % b;
-    }
-    if (!positive) {
-        negate();
-    }
-    data->optimize();
-    return *this;
-}
 
 big_integer &big_integer::operator/=(uint32_t b) {
     check_data();
@@ -148,6 +123,16 @@ big_integer &big_integer::operator/=(uint32_t b) {
         negate();
     }
     data->optimize();
+    return *this;
+}
+
+big_integer &big_integer::operator/=(int32_t b) {
+    if (b < 0) {
+        *this /= -((uint32_t) b);
+        negate();
+    } else {
+        *this /= (uint32_t) b;
+    }
     return *this;
 }
 
