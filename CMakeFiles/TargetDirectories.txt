@@ -1,0 +1,3 @@
+/home/monstr/C++/CppHomework/CMakeFiles/rebuild_cache.dir
+/home/monstr/C++/CppHomework/CMakeFiles/big_integer_testing.dir
+/home/monstr/C++/CppHomework/CMakeFiles/edit_cache.dir
