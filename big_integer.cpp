@@ -552,7 +552,7 @@ big_integer& big_integer::operator/=(big_integer const &b) {
             x -= (y << 32 * m);
         }
         big_integer shift_y(y << (32 * m));
-        for (int i = m - 1; i >= 0; i--) {
+        for (size_t i = m; i--;) {
             x.data->extend(n + i + 1);
             shift_y >>= 32;
             uint64_t q64 = (((uint64_t) (*x.data)[n + i] << 32u) + (*x.data)[n + i - 1]) / c;
