@@ -27,7 +27,7 @@ big_integer &big_integer::operator=(big_integer const &b) {
 
 void big_integer::check_data() {
     if (data->get_ref() > 1) {
-        ref_vector *new_data = new ref_vector(*data);
+        auto *new_data = new ref_vector(*data);
         data->del_ref();
         data = new_data;
     }

@@ -9,18 +9,42 @@
 #include <vector>
 #include <cstdint>
 
-class ref_vector:public std::vector<uint32_t> {
-    int ref_count;
+class ref_vector {
+private:
+    static const size_t BORDER = 16;
+    uint32_t *pointer;
+    size_t ref_count;
+    size_t _size;
+    union data_type {
+        std::vector<uint32_t> *big;
+        uint32_t small[BORDER];
+    } data;
 public:
-    explicit ref_vector(size_t size = 0, uint32_t init_value = 0) : std::vector<uint32_t >(size, init_value) {ref_count = 1;}
-    ref_vector(ref_vector const& obj): std::vector<uint32_t>(obj) {ref_count = 1;}
-    uint32_t const operator[](size_t i) const;
-    uint32_t& operator[](size_t i);
-    int add_ref();
+    ref_vector(size_t size = 1, uint32_t init_value = 0);
+
+    ref_vector(ref_vector const &obj);
+
+    ~ref_vector();
+
+    size_t size() const;
+
+    uint32_t &operator[](size_t i);
+
+    void push_back(uint32_t value);
+
+    void pop_back();
+
+    void add_ref();
+
     void del_ref();
-    int get_ref();
-    void optimize();
+
+    size_t get_ref();
+
     void extend(size_t new_size);
+
+    void optimize();
+
+    uint32_t &back();
 };
 
 

@@ -1,9 +1,3 @@
-big_integer.cpp
-big_integer.h
-big_integer_testing.cpp
 cmake-build-debug
 CMakeFiles
-CMakeLists.txt
-gtest
-ref_vector.cpp
-ref_vector.h
+.idea
