@@ -94,9 +94,9 @@ big_integer &big_integer::operator*=(uint32_t b) {
     return *this;
 }
 
-big_integer& big_integer::operator*=(int32_t b) {
+big_integer &big_integer::operator*=(int32_t b) {
     if (b < 0) {
-        *this *= (uint32_t)(-b);
+        *this *= (uint32_t) (-b);
         negate();
     } else {
         *this *= (uint32_t) b;
@@ -136,13 +136,13 @@ big_integer &big_integer::operator/=(int32_t b) {
     return *this;
 }
 
-big_integer operator/(big_integer const& a, int32_t b) {
+big_integer operator/(big_integer const &a, int32_t b) {
     big_integer c(a);
     c /= b;
     return c;
 }
 
-big_integer operator/(big_integer const& a, uint32_t b) {
+big_integer operator/(big_integer const &a, uint32_t b) {
     big_integer c(a);
     c /= b;
     return c;
@@ -174,13 +174,13 @@ big_integer &big_integer::operator%=(uint32_t b) {
     return *this;
 }
 
-big_integer& big_integer::operator%=(int32_t b) {
+big_integer &big_integer::operator%=(int32_t b) {
     return *this %= (uint32_t) abs(b);
 }
 
 int32_t big_integer::operator%(int32_t b) const {
     big_integer c(*this);
-    c %= (uint32_t)abs(b);
+    c %= (uint32_t) abs(b);
     return (*c.data)[0];
 }
 
@@ -239,7 +239,7 @@ std::string to_string(big_integer const &a) {
     }
     while (c.sign() != 0) {
         result = (char) ('0' + c % 10) + result;
-        c /= (uint32_t)10;
+        c /= (uint32_t) 10;
     }
     if (result.empty()) {
         result = "0";
@@ -496,7 +496,7 @@ big_integer operator^(big_integer const &a, big_integer const &b) {
     return c;
 }
 
-big_integer& big_integer::operator/=(big_integer const &b) {
+big_integer &big_integer::operator/=(big_integer const &b) {
     big_integer x(*this), y(b);
     data = new ref_vector(1, 0);
     x.data->del_ref();
@@ -514,13 +514,13 @@ big_integer& big_integer::operator/=(big_integer const &b) {
         return *this;
     }
     if (y.data->size() == 1) {
-        *this = x / (int32_t)(*y.data)[0];
+        *this = x / (int32_t) (*y.data)[0];
     } else {
         uint32_t c = y.data->back();
         if (c == 0) {
             c = (*y.data)[y.data->size() - 2];
         }
-        auto f = uint32_t ((1ull << 32u) / ((uint64_t) (c + 1)));
+        auto f = uint32_t((1ull << 32u) / ((uint64_t) (c + 1)));
         x *= f;
         y *= f;
         c = y.data->back();
@@ -541,7 +541,7 @@ big_integer& big_integer::operator/=(big_integer const &b) {
             x.data->extend(n + i + 1);
             shift_y >>= 32;
             uint64_t q64 = (((uint64_t) (*x.data)[n + i] << 32u) + (*x.data)[n + i - 1]) / c;
-            uint32_t q = std::min(q64, (uint64_t)UINT32_MAX);
+            uint32_t q = std::min(q64, (uint64_t) UINT32_MAX);
             while (shift_y * q > x) {
                 q--;
             }
@@ -557,24 +557,24 @@ big_integer& big_integer::operator/=(big_integer const &b) {
 }
 
 
-big_integer operator/(big_integer const& a, big_integer const& b) {
+big_integer operator/(big_integer const &a, big_integer const &b) {
     big_integer c(a);
     c /= b;
     return c;
 }
 
-big_integer& big_integer::operator%=(big_integer const &b) {
+big_integer &big_integer::operator%=(big_integer const &b) {
     *this -= (*this / b) * b;
     return *this;
 }
 
-big_integer operator%(big_integer const& a, big_integer const& b) {
+big_integer operator%(big_integer const &a, big_integer const &b) {
     big_integer c(a);
     c %= b;
     return c;
 }
 
-big_integer& big_integer::operator++() {
+big_integer &big_integer::operator++() {
     *this += 1;
     return *this;
 }
@@ -585,7 +585,7 @@ const big_integer big_integer::operator++(int) {
     return c;
 }
 
-big_integer& big_integer::operator--() {
+big_integer &big_integer::operator--() {
     *this -= 1;
     return *this;
 }
