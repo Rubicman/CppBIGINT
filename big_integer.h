@@ -6,8 +6,9 @@
 #define CPPHOMEWORK_BIG_INTEGER_H
 
 #include <iostream>
-#include "ref_vector.h"
 #include <cstring>
+
+class ref_vector;
 
 struct big_integer {
     ref_vector *data;

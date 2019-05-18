@@ -1,4 +1,5 @@
 #include "big_integer.h"
+#include "ref_vector.h"
 
 big_integer::big_integer() : data(new ref_vector(1, 0)) {}
 
