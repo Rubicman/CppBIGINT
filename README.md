@@ -1,1 +1,1 @@
-# Библиотека для работы с большими числами
+# C++ Library for working with large numbers
